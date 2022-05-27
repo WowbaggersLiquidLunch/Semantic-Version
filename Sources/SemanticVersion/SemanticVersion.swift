@@ -22,7 +22,6 @@ public struct SemanticVersion {
 	///	  - prereleaseIdentifiers: The pre-release identifiers.
 	///	  - buildMetaDataIdentifiers: The build metadata identifiers.
 	public init(
-		//	FIXME: Should `major`, `minor`, and `patch` be `UInt`?
 		_ major: UInt,
 		_ minor: UInt,
 		_ patch: UInt,
@@ -40,7 +39,7 @@ public struct SemanticVersion {
 		}
 		try buildMetadataIdentifiers.forEach {
 			guard $0.allSatisfy( { $0.isASCII && ( $0.isLetter || $0.isNumber || $0 == "-" ) } ) else {
-				throw SemanticVersionError.invalidCharacterInIdentifier($0[...], position: .buildMetadata)
+				throw SemanticVersionError.invalidCharacterInIdentifier($0, position: .buildMetadata)
 			}
 		}
 		self.buildMetadataIdentifiers = buildMetadataIdentifiers

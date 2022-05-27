@@ -7,16 +7,16 @@ public enum SemanticVersionError: Error, CustomStringConvertible {
 	///	- Parameters:
 	///	  - identifier: The identifier that contains invalid character(s).
 	///	  - position: The given identifier's position in the semantic version.
-	case invalidCharacterInIdentifier(_ identifier: Substring, position: AlphanumericIdentifierPosition)
+	case invalidCharacterInIdentifier(_ identifier: String, position: AlphanumericIdentifierPosition)
 	///	The numeric identifier at the given position is invalid for the given reason.
 	///	- Parameters:
 	///	  - identifier: The invalid numeric identifier.
 	///	  - position: The given numeric identifier's position in the semantic version.
 	///	  - errorKind: The reason why the given numeric identifier is invalid.
-	case invalidNumericIdentifier(_ identifier: Substring, position: NumericIdentifierPosition, errorKind: NumericIdentifierErrorKind)
+	case invalidNumericIdentifier(_ identifier: String, position: NumericIdentifierPosition, errorKind: NumericIdentifierErrorKind)
 	///	The version core contains an invalid number of Identifiers.
 	///	- Parameter identifiers: The version core identifiers in the version string.
-	case invalidVersionCoreIdentifierCount(identifiers: [Substring])
+	case invalidVersionCoreIdentifierCount(identifiers: [String])
 	
 	///	A position of an identifier in a semantic version.
 	public enum IdentifierPosition: String, CustomStringConvertible {

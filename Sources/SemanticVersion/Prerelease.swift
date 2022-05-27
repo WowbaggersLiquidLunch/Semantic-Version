@@ -56,13 +56,13 @@ extension SemanticVersion.Prerelease.Identifier {
 			throw SemanticVersionError.emptyIdentifier(position: .prerelease)
 		}
 		guard identifierString.allSatisfy(\.isAllowedInSemanticVersionIdentifier) else {
-			throw SemanticVersionError.invalidCharacterInIdentifier(identifierString[...], position: .prerelease)
+			throw SemanticVersionError.invalidCharacterInIdentifier(String(identifierString), position: .prerelease)
 		}
 		if identifierString.allSatisfy(\.isNumber) {
 			//	diagnose the identifier as a numeric identifier, if all characters are ASCII digits
 			guard identifierString.first != "0" || identifierString == "0" else {
 				throw SemanticVersionError.invalidNumericIdentifier(
-					identifierString[...],
+					String(identifierString),
 					position: .prerelease,
 					errorKind: .leadingZeros
 				)
@@ -72,7 +72,7 @@ extension SemanticVersion.Prerelease.Identifier {
 					throw SemanticVersionError.emptyIdentifier(position: .prerelease)
 				} else {
 					throw SemanticVersionError.invalidNumericIdentifier(
-						identifierString[...],
+						String(identifierString),
 						position: .prerelease,
 						errorKind: .oversizedValue
 					)

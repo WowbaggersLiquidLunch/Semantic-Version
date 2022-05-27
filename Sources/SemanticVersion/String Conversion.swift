@@ -11,7 +11,7 @@ extension SemanticVersion {
 		let versionCoreIdentifiers = versionCore.split(separator: ".", omittingEmptySubsequences: false)
 		
 		guard versionCoreIdentifiers.count == 3 else {
-			throw SemanticVersionError.invalidVersionCoreIdentifierCount(identifiers: versionCore.isEmpty ? [] : versionCoreIdentifiers)
+			throw SemanticVersionError.invalidVersionCoreIdentifierCount(identifiers: versionCore.isEmpty ? [] : versionCoreIdentifiers.map { String($0) } )
 		}
 		
 		self.major = try validNumericIdentifier(versionCoreIdentifiers[0], identifierPosition: .major)
@@ -34,7 +34,7 @@ extension SemanticVersion {
 					throw SemanticVersionError.emptyIdentifier(position: .buildMetadata)
 				}
 				guard $0.allSatisfy(\.isAllowedInSemanticVersionIdentifier) else {
-					throw SemanticVersionError.invalidCharacterInIdentifier($0, position: .buildMetadata)
+					throw SemanticVersionError.invalidCharacterInIdentifier(String($0), position: .buildMetadata)
 				}
 				return String($0)
 			}
@@ -69,13 +69,13 @@ extension SemanticVersion {
 							|| identifierString.allSatisfy(\.isAllowedInSemanticVersionNumericIdentifier) {
 					//	If the identifier string represents a positive number, but cannot be converted to `UInt`, then it must be too large.
 					throw SemanticVersionError.invalidNumericIdentifier(
-						identifierString,
+						String(identifierString),
 						position: identifierPosition,
 						errorKind: .oversizedValue
 					)
 				} else {
 					throw SemanticVersionError.invalidNumericIdentifier(
-						identifierString,
+						String(identifierString),
 						position: identifierPosition,
 						errorKind: .nonNumericCharacter
 					)
@@ -84,7 +84,7 @@ extension SemanticVersion {
 			//	Although `Int.init<S: StringProtocol>(_:)` accepts a leading "+" in the argument, we don't need to be check for it here. "+" is the delimiter between pre-release and build metadata, and build metadata does not care for the validity of numeric identifiers.
 			guard identifierString == "0" || (identifierString.first != "-" && identifierString.first != "0") else {
 				throw SemanticVersionError.invalidNumericIdentifier(
-					identifierString,
+					String(identifierString),
 					position: identifierPosition,
 					errorKind: .leadingZeros
 				)

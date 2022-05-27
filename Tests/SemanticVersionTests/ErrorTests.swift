@@ -399,7 +399,7 @@ final class ErrorTests: XCTestCase {
 		let invalidCases: [
 			(
 				errorThrowingExpression: () throws -> SemanticVersion,
-				versionCoreIdentifiers: [Substring],
+				versionCoreIdentifiers: [String],
 				versionCoreIdentifierCount: Int,
 				versionCoreDiagnosticDescription: String?
 			)
@@ -689,7 +689,7 @@ final class ErrorTests: XCTestCase {
 	}
 	
 	func assertThrowingIncorrectVersionCoreIdentifierCountError(
-		inVersionCore versionCoreIdentifiers: [Substring],
+		inVersionCore versionCoreIdentifiers: [String],
 		versionCoreDiagnosticDescription: String?,
 		parsedVersionCoreIdentifierCount versionCoreIdentifierCount: Int,
 		whenEvaluating expression: () throws -> SemanticVersion
