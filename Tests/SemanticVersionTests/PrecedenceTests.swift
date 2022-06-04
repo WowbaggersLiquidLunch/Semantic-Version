@@ -9,6 +9,7 @@ final class PrecedenceTests: XCTestCase {
 		XCTAssertGreaterThanOrEqual(version2, version1)
 		XCTAssertNotEqual(version1, version2)
 		XCTAssertNotEqual(version2, version1)
+		//	Tests false paths, because all XCTest precedence assertions test only true paths.
 		XCTAssertFalse(version1 > version2)
 		XCTAssertFalse(version1 >= version2)
 		XCTAssertFalse(version2 < version1)
@@ -22,6 +23,7 @@ final class PrecedenceTests: XCTestCase {
 		XCTAssertLessThanOrEqual(version1, version2)
 		XCTAssertGreaterThanOrEqual(version1, version2)
 		XCTAssertGreaterThanOrEqual(version2, version1)
+		//	Tests false paths, because all XCTest precedence assertions test only true paths.
 		XCTAssertFalse(version1 != version2)
 		XCTAssertFalse(version2 != version1)
 		XCTAssertFalse(version1 < version2)
